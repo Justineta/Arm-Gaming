@@ -7,7 +7,9 @@
 echo "This script is following the guide of Microlinux and adding my own things (@Justineta on Github)"
 ## https://github.com/Justineta/BOX86-BOX64-WINEx86-TUTORIAL for the base script
 echo "Installing things like build-essential and git from repo"
-sudo apt update && sudo apt install build-essential git curl
+sudo apt update && sudo apt install build-essential git curl libxpresent1
+
+## libxpresent1 seems to be needed on my side for winetricks to work
 
 echo "Installing Box86 and Box64 with Ryan Fortner repo"
 ## Adding Box86 and Box64 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
@@ -75,5 +77,29 @@ sudo ln -s ~/wine/winetricks /usr/local/bin/
 echo "Configuring Winetricks... (it make some times)"
 W_OPT_UNATTENDED=1 winetricks mfc42 vcrun6 vcrun2003 xact d3drm d3dx9_43 d3dcompiler_43 \
   d3dx9 fontfix gdiplus dotnet20 msxml3 vcrun2005sp1 vcrun2008 fontsmooth=rgb
-  
-  
+
+## DXVK part : not for the moment, work to do with mesa panvk
+#winetricks dxvk
+
+echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)"
+## Adding a PPA with the lastest mesa drivers
+sudo add-apt-repository ppa:oibaf/graphics-drivers
+sudo apt update
+sudo apt upgrade
+
+# Some other choise who can be implemented later
+#    Decide to not use oibaf (i.e. keep the MESA drivers that originally shipped with your system); or
+#    Add the oibaf PPA and then install a different Linux kernel whose version works with the drivers installed by such PPA. Canonical provides hundreds of alternative kernels 8 that you can download and install, if you want to try them and know how to do it; or
+#    Add a different PPA that also upgrades MESA, like e.g. kisak-mesa 23 or kisak-mesa-stable 23: the first one (kisak-mesa) provides mainline (i.e. more up-to-date but less compatible) MESA drivers, the second one (kisak-mesa-stable) provides MESA drivers that are likely older and less efficient but more stable and compatible than those provided by kisak-mesa.
+
+echo "Installing Gallium Nine"
+sudo apt install libd3dadapter9-mesa:armhf
+winetricks galliumnine
+wine ninewinecfg
+
+##To use NINE on DX8 games: we drag an x86 .dll copy of the dx8 to dx9 wrapper from here https://github.com/crosire/d3d8to9/releases, we place it on the game folder, probably overriting the original lib (you can jsut rename the original first) and from terminal we execute the game with:
+#WINEDLLOVERRIDES=d3d8.dll=n wine thedx8game.exe
+##or you can just set `d3d8.dll` as native on winecfg but I think it's best the other way.
+##on every ocassion, both dx9 or dx8 games with the wrapper, and if running from terminal, you will see gallium nine being used, if not, gallium nine isnt working for some reason and it's utilizing WINE3D.
+##Note: For STEAM WINDOWS GAMES I recommend the usage of Goldeberg emulator, and it works the same way as on linux games, you just need to use the goldberg windows x86 libs to replace the game folder steam libraries to emulate steam. This isn't illegal at all!
+
