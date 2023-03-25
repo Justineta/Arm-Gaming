@@ -103,3 +103,8 @@ wine ninewinecfg
 ##on every ocassion, both dx9 or dx8 games with the wrapper, and if running from terminal, you will see gallium nine being used, if not, gallium nine isnt working for some reason and it's utilizing WINE3D.
 ##Note: For STEAM WINDOWS GAMES I recommend the usage of Goldeberg emulator, and it works the same way as on linux games, you just need to use the goldberg windows x86 libs to replace the game folder steam libraries to emulate steam. This isn't illegal at all!
 
+## FPS counter
+## https://linuxhint.com/show_fps_counter_linux_games/
+sudo apt install xosd-bin mesa-utils mangohud gamescope
+## mangohud last verstion here https://github.com/flightlessmango/MangoHud/releases
+## Gamescope last version here https://github.com/Plagman/gamescope
