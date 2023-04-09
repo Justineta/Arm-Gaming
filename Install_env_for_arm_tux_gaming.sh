@@ -105,6 +105,8 @@ wine ninewinecfg
 
 ## FPS counter
 ## https://linuxhint.com/show_fps_counter_linux_games/
-sudo apt install xosd-bin mesa-utils mangohud gamescope
+sudo apt install xosd-bin mesa-utils mangohud
 ## mangohud last verstion here https://github.com/flightlessmango/MangoHud/releases
 ## Gamescope last version here https://github.com/Plagman/gamescope
+## Gamescope seems to not get intregrated in the repo so compile it
+sudo pat install meson
