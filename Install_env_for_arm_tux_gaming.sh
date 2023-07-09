@@ -14,7 +14,7 @@ sudo apt update && sudo apt install build-essential git curl libxpresent1
 echo "Installing Box86 and Box64 with Ryan Fortner repo"
 ## Adding Box86 and Box64 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
 sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list
-wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpghttps://box86.debian.ryanfortner.dev/
+wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg
 sudo apt update && sudo apt install box86 -y
 
 ## And box64 (https://github.com/ryanfortner/box64-debs)
