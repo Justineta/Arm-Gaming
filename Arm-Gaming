@@ -1,10 +1,155 @@
 #!/bin/bash
 ### Personal public script ###
+## Not in a final stage, be inspired but don't use it raw
 ## Gaming with Armbian
 ## @Justineta 
 
 ## https://www.datacamp.com/tutorial/how-to-write-bash-script-tutorial
-echo "This script is following the guide of Microlinux and adding my own things (@Justineta on Github)"
+function MainMenu {
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="Main menu"
+  MENU="Choose one of the following options:"
+  echo "This program is designed to work in an Ubuntu based distro. "
+  OPTIONS=(
+    1 "1. Do the basics (update, install few package, add ARM 32 bits, probably needed for the rest). "
+    2 "2. Tools to improve compatibility of the games (OpenGL force version...). "
+    3 "3. Install native games. "
+    4 "4. Install emulators. "
+    5 "5. Tools for x86, amd64 and Window\$ games. "
+    6 "6. General Tools like FPS counter. "
+    7 "7. Greetings. "
+    8 "8. Time to eat. " )
+  
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  
+  clear
+  case $CHOICE in
+  1)
+    DoTheBasics
+    ;;
+  2)
+    MenuTools
+    ;;
+  3)
+    MenuNativeGames
+    ;;
+  4)
+    MenuEmulators
+    ;;
+  5)
+    MenuBoxWine
+    ;;
+  6)
+    MenuPracticalTools
+    ;;
+  7)
+    Greetings
+    ;;
+  8)
+    echo "A plus et bon appétit ! "
+	  exit
+    ;;
+          
+  esac
+}
+
+
+function DoTheBasics {
+	echo "Installing things like build-essential, git, curl, and some libs from repo"
+  sudo apt update
+  sudo apt install build-essential git curl
+  echo "build-essential git curl  successfully installed, bravo"
+  while true; do
+    read -p "Do you want to do a general update and reboot ? (y/n) " yn
+    case $yn in
+        [Yy]* ) sudo apt dist-upgrade; 
+          echo "Please do a manual reboot now"; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+  done
+}
+
+
+function MenuTools {
+  echo "Hello"
+}
+
+function MenuNativeGames {
+echo "Please choose what you want to install! "
+echo "1. Open Arena, a fast FPS game based on Quake Arena "
+echo "2. Xmoto, a 2D challenging moto game " 
+echo "3. Super Tux Kart, a racing game "
+echo "4. Hello "
+echo "Type your choice "
+read menuchoice
+if [ $menuchoice -eq 1 ]
+	then 
+	InstallOpenarena
+elif [ $menuchoice -eq 2 ]
+	then 
+	InstallXmoto
+elif [ $menuchoice -eq 3 ]
+	then 
+	InstallSuperTuxKart
+elif [ $menuchoice -eq 4 ]
+	then 
+  echo "Hello"
+else 
+	echo "Invalid choice. "
+fi
+}
+
+function MenuEmulators {
+  echo "Hello"
+}
+
+function MenuBoxWine {
+  echo "Hello"
+}
+
+function MenuPracticalTools {
+  echo "Hello"
+}
+
+function Greetings {
+  echo "This script is based on some good scripts and videos : "
+  echo "Videos of NicoD and Microlinux on Youtube "
+  echo "Microlinux writed tutorial : https://github.com/neofeo/BOX86-BOX64-WINEx86-TUTORIAL "
+  echo "NicoD script : https://github.com/NicoD-SBC/armbian-gaming/ "
+  echo "The guide of Raezroth : https://github.com/Raezroth/Linux-ARM-Gaming-Chroot/ "
+  echo "The work of PtitSeb : https://github.com/ptitSeb/ "
+  echo "The work of Ryan Fortner : https://ryanfortner.github.io/ "
+  echo "And the work of so many Gnu, Linux, Wine, Mesa... contributors of the FOSS project "
+  read
+  MainMenu
+}
+
+function InstallOpenarena {
+  sudo apt install openarena
+}
+
+function InstallXmoto {
+  echo "Hello"
+}
+
+function InstallSuperTuxKart {
+  echo "Hello"
+}
+
+MainMenu
+exit
+echo "Don't show me this text"
+
 ## https://github.com/Justineta/BOX86-BOX64-WINEx86-TUTORIAL for the base script
 echo "Installing things like build-essential and git from repo"
 sudo apt update && sudo apt install build-essential git curl libxpresent1
@@ -71,6 +216,7 @@ sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:ar
 
 echo "Installing Winetricks"
 ## Installing Winetricks https://github.com/Winetricks/winetricks
+sudo apt install libxpresent1
 cd wine && wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && cd
 chmod +x ~/wine/winetricks
 sudo ln -s ~/wine/winetricks /usr/local/bin/
