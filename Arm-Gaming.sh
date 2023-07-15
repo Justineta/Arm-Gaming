@@ -12,16 +12,17 @@ function MainMenu {
   BACKTITLE="Arm-Gaming"
   TITLE="Main menu"
   MENU="Choose one of the following options:"
-  echo "This program is designed to work in an Ubuntu based distro. "
+  echo "This program is designed to work in an Ubuntu based distro."
   OPTIONS=(
-    1 "1. Do the basics (update, install few package, add ARM 32 bits, probably needed for the rest). "
-    2 "2. Tools to improve compatibility of the games (OpenGL force version...). "
-    3 "3. Install native games. "
-    4 "4. Install emulators. "
-    5 "5. Tools for x86, amd64 and Window\$ games. "
+    1 "1. Do the basics (update, install few package, add ARM 32 bits, probably needed for the rest)."
+    2 "2. Tools to improve compatibility of the games (OpenGL force version...)."
+    3 "3. Install native games."
+    4 "4. Install emulators."
+    5 "5. Tools for x86, amd64 and Window\$ games."
     6 "6. General Tools like FPS counter. "
-    7 "7. Greetings. "
-    8 "8. Time to eat. " )
+		7 "7. Benchmarking tools."
+    8 "8. Greetings."
+    9 "9. Time to eat." )
   
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
@@ -52,9 +53,12 @@ function MainMenu {
     MenuPracticalTools
     ;;
   7)
-    Greetings
+		MenuBenchmark
     ;;
   8)
+    Greetings
+    ;;
+  9)
     echo "A plus et bon appétit ! "
 	  exit
     ;;
@@ -85,28 +89,46 @@ function MenuTools {
 }
 
 function MenuNativeGames {
-echo "Please choose what you want to install! "
-echo "1. Open Arena, a fast FPS game based on Quake Arena "
-echo "2. Xmoto, a 2D challenging moto game " 
-echo "3. Super Tux Kart, a racing game "
-echo "4. Hello "
-echo "Type your choice "
-read menuchoice
-if [ $menuchoice -eq 1 ]
-	then 
-	InstallOpenarena
-elif [ $menuchoice -eq 2 ]
-	then 
-	InstallXmoto
-elif [ $menuchoice -eq 3 ]
-	then 
-	InstallSuperTuxKart
-elif [ $menuchoice -eq 4 ]
-	then 
-  echo "Hello"
-else 
-	echo "Invalid choice. "
-fi
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="Native game"
+  MENU="Choose one of the following options:"
+  OPTIONS=(
+    1 "1. Open Arena, a quake based fast FPS"
+    2 "2. Xmoto, a 2D moto challenging game"
+    3 "3. Super Tux Kart, an arcade 3D racing game"
+    4 "4. Super Tux, a story plateformer"
+    5 "5. Return to the main menu"
+  
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  
+  clear
+  case $CHOICE in
+  1)
+    sudo apt install openarena
+    ;;
+  2)
+    sudo apt install xmoto
+    ;;
+  3)
+    sudo apt install supertuxkart
+    ;;
+  4)
+    sudo apt install supertux
+    ;;
+  5)
+    MainMenu
+    ;;
+          
+  esac
 }
 
 function MenuEmulators {
@@ -118,6 +140,10 @@ function MenuBoxWine {
 }
 
 function MenuPracticalTools {
+  echo "Hello"
+}
+
+function MenuBenchmark {
   echo "Hello"
 }
 
@@ -134,17 +160,6 @@ function Greetings {
   MainMenu
 }
 
-function InstallOpenarena {
-  sudo apt install openarena
-}
-
-function InstallXmoto {
-  echo "Hello"
-}
-
-function InstallSuperTuxKart {
-  echo "Hello"
-}
 
 MainMenu
 exit
