@@ -114,16 +114,36 @@ function MenuNativeGames {
   clear
   case $CHOICE in
   1)
-    sudo apt install openarena
+    sudo apt install openarena; 
+    echo "";
+    echo "Type \"openarena\" in a terminal to play it";
+    echo "Type \"sudo apt autoremove openarena\" to remove the game";
+    read;
+    MenuNativeGames
     ;;
   2)
-    sudo apt install xmoto
+    sudo apt install xmoto; 
+    echo "";
+    echo "Type \"xmoto\" in a terminal to play it";
+    echo "Type \"sudo apt autoremove xmoto\" to remove the game";
+    read;
+    MenuNativeGames
     ;;
   3)
-    sudo apt install supertuxkart
+    sudo apt install supertuxkart; 
+    echo "";
+    echo "Type \"supertuxkart\" in a terminal to play it";
+    echo "Type \"sudo apt autoremove supertuxkart\" to remove the game";
+    read;
+    MenuNativeGames
     ;;
   4)
-    sudo apt install supertux
+    sudo apt install supertux;
+    echo "";
+    echo "Type \"supertux\" in a terminal to play it";
+    echo "Type \"sudo apt autoremove supertux\" to remove the game";
+    read;
+    MenuNativeGames
     ;;
   5)
     MainMenu
