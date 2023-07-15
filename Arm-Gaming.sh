@@ -89,7 +89,7 @@ function DoTheBasics {
 
 
 function MenuTools {
-  echo "Hello"
+  echo "Not implemented yet"
 }
 
 function MenuNativeGames {
@@ -156,15 +156,15 @@ function MenuNativeGames {
 }
 
 function MenuEmulators {
-  echo "Hello"
+  echo "Not implemented yet"
 }
 
 function MenuBoxWine {
-  echo "Hello"
+  echo "Not implemented yet"
 }
 
 function MenuPracticalTools {
-  echo "Hello"
+  echo "Not implemented yet"
 }
 
 function MenuBenchmark {
