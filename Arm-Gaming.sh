@@ -22,7 +22,8 @@ function MainMenu {
     6 "6. General Tools like FPS counter. "
 		7 "7. Benchmarking tools."
     8 "8. Greetings."
-    9 "9. Time to eat." )
+    9 "9. Time to eat." 
+    )
   
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
@@ -101,7 +102,7 @@ function MenuNativeGames {
     3 "3. Super Tux Kart, an arcade 3D racing game"
     4 "4. Super Tux, a story plateformer"
     5 "5. Return to the main menu"
-  
+  	)
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
                   --title "$TITLE" \
@@ -156,6 +157,7 @@ function MenuBenchmark {
     3 "3. 	Benchmark RAM"
     4 "4. 	Benchmark I/O"
     5 "5. Return to the main menu"
+		)
   
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
