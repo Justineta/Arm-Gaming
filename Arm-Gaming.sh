@@ -144,7 +144,46 @@ function MenuPracticalTools {
 }
 
 function MenuBenchmark {
-  echo "Hello"
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="Benchmark"
+  MENU="Choose one of the following options:"
+  OPTIONS=(
+    1 "1. Install native benckmarking tool"
+    2 "2. 	Benchmark CPU"
+    3 "3. 	Benchmark RAM"
+    4 "4. 	Benchmark I/O"
+    5 "5. Return to the main menu"
+  
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  
+  clear
+  case $CHOICE in
+  1)
+    sudo apt install sysbench
+    ;;
+  2)
+    sysbench --test=cpu run
+    ;;
+  3)
+    sysbench --test=memory run
+    ;;
+  4)
+    sysbench --test=fileio --file-test-mode=seqwr run
+    ;;
+  5)
+    MainMenu
+    ;;
+          
+  esac
 }
 
 function Greetings {
