@@ -17,7 +17,7 @@ function MainMenu {
   MENU="Choose one of the following options:"
   echo "This program is designed to work in an Ubuntu based distro."
   OPTIONS=(
-    1 "1. Do the basics (update, install few package, add ARM 32 bits, probably needed for the rest)."
+    1 "1. [RECOMMENDED]Do the basics (update, install few package, add ARM 32 bits, installing some gaming libs)."
     2 "2. Tools to improve compatibility of the games (OpenGL force version...)."
     3 "3. Install native games."
     4 "4. Install emulators."
@@ -72,21 +72,25 @@ function MainMenu {
 
 
 function DoTheBasics {
-	echo "Installing things like build-essential, git, curl, and some libs from repo"
-  sudo apt update
-  sudo apt install build-essential git curl
-  echo "build-essential git curl  successfully installed, bravo"
-  while true; do
-    read -p "Do you want to do a general update and reboot ? (y/n) " yn
-    case $yn in
-        [Yy]* ) sudo apt dist-upgrade; 
-          echo "Please do a manual reboot now"; break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
+	echo "Installing things like build-essential, git, curl, and some gaming libs for arm 32 bits and 64 bits"
+	dpkg --add-architecture armhf
+ 	sudo apt update
+ 	sudo apt install build-essential git curl
+	sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf \
+  		libgtk2.0-0:armhf libstdc++6:armhf libsdl2-2.0-0:armhf mesa-va-drivers:armhf libsdl-mixer1.2:armhf \
+  		libpng16-16:armhf libsdl2-net-2.0-0:armhf libopenal1:armhf libsdl2-image-2.0-0:armhf libjpeg62:armhf \
+  		libudev1:armhf libgl1-mesa-dev:armhf libx11-dev:armhf libsdl2-image-2.0-0:armhf libsdl2-mixer-2.0-0:armhf
+	echo "build-essential git curl and other libs for gaming successfully installed, bravo"
+	while true; do
+    	read -p "Do you want to do a general update and reboot ? (y/n) " yn
+    	case $yn in
+          [Yy]* ) sudo apt dist-upgrade; 
+          	echo "Please do a manual reboot now"; break;;
+          [Nn]* ) break;;
+          * ) echo "Please answer yes or no.";;
     esac
   done
 }
-
 
 function MenuTools {
   echo "Not implemented yet"
@@ -104,7 +108,8 @@ function MenuNativeGames {
     2 "2. Xmoto, a 2D moto challenging game"
     3 "3. Super Tux Kart, an arcade 3D racing game"
     4 "4. Super Tux, a story plateformer"
-    5 "5. Return to the main menu"
+    5 "5. 0 A.D. - Empires Ascendant, a historical strategy game"
+    6 "6. Return to the main menu"
   	)
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
@@ -149,6 +154,14 @@ function MenuNativeGames {
     read;
     MenuNativeGames;;
   5)
+    sudo apt install 0ad;
+    echo "";
+    echo "Type \"0ad\" in a terminal to play it";
+    echo "Type \"sudo apt autoremove 0ad\" to remove the game";
+    echo "Press any key";
+    read;
+    MenuNativeGames;;
+  6)
     MainMenu
     ;;
           
