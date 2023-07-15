@@ -171,8 +171,8 @@ function MenuBoxWine {
     1 "1. Install Box86"
     2 "2. Install Box64"
     3 "3. Install Wine"
-    4 "4. ..."
-    5 "5. ..."
+    4 "4. Install Winetricks"
+    5 "5. Install DXVK"
     6 "6. Return to the main menu"
 	)
   
@@ -298,7 +298,7 @@ function InstallBox86 {
   WIDTH=80
   CHOICE_HEIGHT=4
   BACKTITLE="Arm-Gaming"
-  TITLE="Benchmark"
+  TITLE="Box86"
   MENU="Choose one of the following options:"
   OPTIONS=(
     1 "1. Install Box86 from distro repo (easy way)"
@@ -316,7 +316,6 @@ function InstallBox86 {
                   $HEIGHT $WIDTH $CHOICE_HEIGHT \
                   "${OPTIONS[@]}" \
                   2>&1 >/dev/tty)
-  
   clear
   case $CHOICE in
   1)
@@ -324,61 +323,49 @@ function InstallBox86 {
 	while true; do
     read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	    case $yn in
-	        [Yy]* ) sudo apt install box86;
-		 		echo "Press any key";
-	 			read;
-	 			InstallBox86;;
+	        [Yy]* ) dpkg --add-architecture armhf;
+	 		sudo apt update;
+	 		sudo apt install box86;
+		 	echo "Press any key";
+	 		read;
+	 		InstallBox86;;
 	        [Nn]* ) InstallBox86;;
-	        * ) echo "Please answer yes or no.";;
+	        * ) echo "Please answer y or n.";;
 	    esac;
     done;
 	echo "Press any key";
     read;
     InstallBox86;;
   2)
-    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
-    read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
-	    case $yn in
-	        [Yy]* ) 
-		 		## https://github.com/Justineta/BOX86-BOX64-WINEx86-TUTORIAL for the base script
-				echo "Installing things like build-essential and git from repo";
-				sudo apt update && sudo apt install build-essential git curl;
-				## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
-				sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
-				wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
-				sudo apt update && sudo apt install box86 -y;
-
- 
-		 		echo "Press any key";
-	 			read;
-	 			InstallBox86;;
-	        [Nn]* ) InstallBox86;;
-	        * ) echo "Please answer yes or no.";;
+		read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
+	   	case $yn in
+		  [Yy]* ) 
+		 	dpkg --add-architecture armhf;
+			sudo apt update;
+    			## https://github.com/Justineta/BOX86-BOX64-WINEx86-TUTORIAL for the base script
+			echo "Installing things like build-essential and git from repo";
+			sudo apt update && sudo apt install build-essential git curl;
+			## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
+			sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
+			wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
+			sudo apt update && sudo apt install box86 -y;
+	 		echo "Press any key";
+	 		read;
+	 		InstallBox86;;
+		  [Nn]* ) InstallBox86;;
+		  * ) echo "Please answer y or n.";;
 	    esac;
     done;
 	echo "Press any key";
-    read;
-    InstallBox86;;
-  	
-	
-	echo "Installing Box86 with Ryan Fortner repo"
-	## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
-	sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
-	wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
-	sudo apt update && sudo apt install box86 -y;
-	
-
-	
- 
- 	echo "Press any key";
-    read;
-    InstallBox86;;
+    	read;
+    	InstallBox86;;
   3)    
-    sudo apt autoremove box86
+	sudo apt autoremove box86
 	echo "Press any key";
-    read;
-    InstallBox86;;
+    	read;
+    	InstallBox86;;
   4)
     echo "Press any key";
     read;
