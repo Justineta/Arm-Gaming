@@ -123,8 +123,7 @@ function MenuNativeGames {
     echo "Type \"sudo apt autoremove openarena\" to remove the game";
     echo "Press any key";
     read;
-    MenuNativeGames
-    ;;
+    MenuNativeGames;;
   2)
     sudo apt install xmoto; 
     echo "";
@@ -132,8 +131,7 @@ function MenuNativeGames {
     echo "Type \"sudo apt autoremove xmoto\" to remove the game";
     echo "Press any key";
     read;
-    MenuNativeGames
-    ;;
+    MenuNativeGames;;
   3)
     sudo apt install supertuxkart; 
     echo "";
@@ -141,8 +139,7 @@ function MenuNativeGames {
     echo "Type \"sudo apt autoremove supertuxkart\" to remove the game";
     echo "Press any key";
     read;
-    MenuNativeGames
-    ;;
+    MenuNativeGames;;
   4)
     sudo apt install supertux;
     echo "";
@@ -150,8 +147,7 @@ function MenuNativeGames {
     echo "Type \"sudo apt autoremove supertux\" to remove the game";
     echo "Press any key";
     read;
-    MenuNativeGames
-    ;;
+    MenuNativeGames;;
   5)
     MainMenu
     ;;
@@ -180,11 +176,12 @@ function MenuBenchmark {
   MENU="Choose one of the following options:"
   OPTIONS=(
     1 "1. Install native benckmarking tool"
-    2 "2. 	Benchmark CPU"
-    3 "3. 	Benchmark RAM"
-    4 "4. 	Benchmark I/O"
-    5 "5. Return to the main menu"
-		)
+    2 "2. 	Benchmark CPU monothread"
+    3 "3.	Benchmark CPU multithread"
+    4 "4. 	Benchmark RAM"
+    5 "5. 	Benchmark I/O"
+    6 "6. Return to the main menu"
+	)
   
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
@@ -197,18 +194,31 @@ function MenuBenchmark {
   clear
   case $CHOICE in
   1)
-    sudo apt install sysbench
-    ;;
+    sudo apt install sysbench;
+    MenuBenchmark;;
   2)
-    sysbench --test=cpu run
-    ;;
-  3)
-    sysbench --test=memory run
-    ;;
+    sysbench --test=cpu run;
+    echo "Press any key";
+    read;
+    MenuBenchmark;;
+  3)    
+    Logical_Core_Number=$(nproc --all);
+    sysbench --test=cpu --num-threads=$Logical_Core_Number run;
+    echo "Press any key";
+    read;
+    MenuBenchmark;;
   4)
-    sysbench --test=fileio --file-test-mode=seqwr run
-    ;;
+    sysbench --test=memory run;
+    echo "Press any key";
+    read;
+    MenuBenchmark;;
   5)
+    sysbench --test=fileio --file-test-mode=seqwr run;
+    sysbench --test=fileio --file-test-mode=seqwr cleanup;
+    echo "Press any key";
+    read;
+    MenuBenchmark;;
+  6)
     MainMenu
     ;;
           
