@@ -57,7 +57,7 @@ function MainMenu {
     MenuPracticalTools
     ;;
   7)
-		MenuBenchmark
+    MenuBenchmark
     ;;
   8)
     Greetings
@@ -121,6 +121,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"openarena\" in a terminal to play it";
     echo "Type \"sudo apt autoremove openarena\" to remove the game";
+    echo "Press any key";
     read;
     MenuNativeGames
     ;;
@@ -129,6 +130,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"xmoto\" in a terminal to play it";
     echo "Type \"sudo apt autoremove xmoto\" to remove the game";
+    echo "Press any key";
     read;
     MenuNativeGames
     ;;
@@ -137,6 +139,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"supertuxkart\" in a terminal to play it";
     echo "Type \"sudo apt autoremove supertuxkart\" to remove the game";
+    echo "Press any key";
     read;
     MenuNativeGames
     ;;
@@ -145,6 +148,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"supertux\" in a terminal to play it";
     echo "Type \"sudo apt autoremove supertux\" to remove the game";
+    echo "Press any key";
     read;
     MenuNativeGames
     ;;
