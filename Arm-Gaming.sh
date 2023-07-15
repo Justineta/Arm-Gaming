@@ -23,7 +23,7 @@ function MainMenu {
     4 "4. Install emulators."
     5 "5. Tools for x86, amd64 and Window\$ games."
     6 "6. General Tools like FPS counter. "
-		7 "7. Benchmarking tools."
+    7 "7. Benchmarking tools."
     8 "8. Greetings."
     9 "9. Time to eat." 
     )
@@ -153,6 +153,7 @@ function MenuNativeGames {
     ;;
           
   esac
+  MainMenu
 }
 
 function MenuEmulators {
@@ -160,11 +161,64 @@ function MenuEmulators {
 }
 
 function MenuBoxWine {
-  echo "Not implemented yet"
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="x86, AMD64 and windows compatibility"
+  MENU="Choose one of the following options:"
+  OPTIONS=(
+    1 "1. Install Box86"
+    2 "2. Install Box64"
+    3 "3. Install Wine"
+    4 "4. ..."
+    5 "5. ..."
+    6 "6. Return to the main menu"
+	)
+  
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  
+  clear
+  case $CHOICE in
+  1)
+    InstallBox86;
+    echo "Press any key";
+    read;;
+  2)
+    InstallBox64;
+    echo "Press any key";
+    read;;
+  3)    
+    InstallWine;
+    echo "Press any key";
+    read;;
+  4)
+    InstallWinetricks;
+    echo "Press any key";
+    read;;
+  5)
+    InstallDXVK;
+    echo "Press any key";
+    read;;
+  6)
+    MainMenu
+    ;;
+          
+  esac
+  MainMenu
 }
 
 function MenuPracticalTools {
   echo "Not implemented yet"
+  echo "Press any key"
+  read
+  MainMenu
 }
 
 function MenuBenchmark {
@@ -223,6 +277,7 @@ function MenuBenchmark {
     ;;
           
   esac
+  MainMenu
 }
 
 function Greetings {
@@ -238,6 +293,139 @@ function Greetings {
   MainMenu
 }
 
+function InstallBox86 {
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="Benchmark"
+  MENU="Choose one of the following options:"
+  OPTIONS=(
+    1 "1. Install Box86 from distro repo (easy way)"
+    2 "2. Install Box86 from Ryan Fortner repo (generic recent packages)"
+    3 "3. Remove a Box86 installed with distro or Ryan Fortner repo"
+    4 "4. Install Box86 from source (compilation)"
+    5 "5. Remove a Box86 version installed from de source"
+    6 "6. Return to the Box/Wine menu menu"
+	)
+  
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  
+  clear
+  case $CHOICE in
+  1)
+    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	while true; do
+    read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
+	    case $yn in
+	        [Yy]* ) sudo apt install box86;
+		 		echo "Press any key";
+	 			read;
+	 			InstallBox86;;
+	        [Nn]* ) InstallBox86;;
+	        * ) echo "Please answer yes or no.";;
+	    esac;
+    done;
+	echo "Press any key";
+    read;
+    InstallBox86;;
+  2)
+    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	while true; do
+    read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
+	    case $yn in
+	        [Yy]* ) 
+		 		## https://github.com/Justineta/BOX86-BOX64-WINEx86-TUTORIAL for the base script
+				echo "Installing things like build-essential and git from repo";
+				sudo apt update && sudo apt install build-essential git curl;
+				## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
+				sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
+				wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
+				sudo apt update && sudo apt install box86 -y;
+
+ 
+		 		echo "Press any key";
+	 			read;
+	 			InstallBox86;;
+	        [Nn]* ) InstallBox86;;
+	        * ) echo "Please answer yes or no.";;
+	    esac;
+    done;
+	echo "Press any key";
+    read;
+    InstallBox86;;
+  	
+	
+	echo "Installing Box86 with Ryan Fortner repo"
+	## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
+	sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
+	wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
+	sudo apt update && sudo apt install box86 -y;
+	
+
+	
+ 
+ 	echo "Press any key";
+    read;
+    InstallBox86;;
+  3)    
+    sudo apt autoremove box86
+	echo "Press any key";
+    read;
+    InstallBox86;;
+  4)
+    echo "Press any key";
+    read;
+    InstallBox86;;
+  5)
+    ;;
+  6)
+    MenuBoxWine
+    ;;
+          
+  esac
+  MenuBoxWine
+ }
+
+function InstallBox64 {
+  echo "In the future"
+
+	## And box64 (https://github.com/ryanfortner/box64-debs)
+	#sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
+	#wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg
+	#sudo apt update && sudo apt install box64 -y   
+  
+  echo "Press any key"
+  read
+  MainMenu
+}
+
+function InstallWine {
+  echo "In the future"
+  echo "Press any key"
+  read
+  MainMenu
+}
+
+function InstallWinetricks {
+  echo "In the future"
+  echo "Press any key"
+  read
+  MainMenu
+}
+
+function InstallDXVK {
+  echo "In the future"
+  echo "Press any key"
+  read
+  MainMenu
+}
 
 MainMenu
 exit
