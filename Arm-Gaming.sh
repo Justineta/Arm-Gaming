@@ -5,6 +5,9 @@
 ## @Justineta 
 
 ## https://www.datacamp.com/tutorial/how-to-write-bash-script-tutorial
+echo "Warning this script is incomplete and only tested with Armbian for the moment !!!"
+echo "Press Enter to try it anyway"
+read
 function MainMenu {
   HEIGHT=15
   WIDTH=80
