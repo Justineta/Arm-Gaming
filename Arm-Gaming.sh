@@ -86,7 +86,7 @@ function DoTheBasics {
     	case $yn in
           [Yy]* ) sudo apt dist-upgrade; 
           	echo "Please do a manual reboot now"; break;;
-          [Nn]* ) break;;
+          [Nn]* ) MainMenu;;
           * ) echo "Please answer yes or no.";;
     esac
   done
@@ -94,6 +94,9 @@ function DoTheBasics {
 
 function MenuTools {
   echo "Not implemented yet"
+  echo "Press any key"
+  read
+  MainMenu
 }
 
 function MenuNativeGames {
@@ -171,6 +174,9 @@ function MenuNativeGames {
 
 function MenuEmulators {
   echo "Not implemented yet"
+  echo "Press any key"
+  read
+  MainMenu
 }
 
 function MenuBoxWine {
