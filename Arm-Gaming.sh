@@ -4,8 +4,8 @@
 ## Gaming with Armbian
 ## @Justineta 
 
-## https://www.datacamp.com/tutorial/how-to-write-bash-script-tutorial
-echo "Warning this script is incomplete and only tested with Armbian for the moment !!!"
+echo "Warning this script is incomplete and only tested with Armbian at the moment !!!"
+echo "Arm-Gaming version 0.2 by Justineta"
 echo "Press Enter to try it anyway"
 read
 function MainMenu {
