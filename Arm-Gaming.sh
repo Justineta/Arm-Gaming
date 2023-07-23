@@ -125,10 +125,10 @@ function MenuNativeGames {
   clear
   case $CHOICE in
   1)
-    sudo apt install openarena; 
+    sudo apt install openarena openarena-oacmp1; 
     echo "";
     echo "Type \"openarena\" in a terminal to play it";
-    echo "Type \"sudo apt autoremove openarena\" to remove the game";
+    echo "Type \"sudo apt autoremove openarena openarena-oacmp1\" to remove the game";
     echo "Press any key";
     read;
     MenuNativeGames;;
