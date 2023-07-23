@@ -142,8 +142,9 @@ function MenuTools {
     read;
     MenuTools;;
   4)
-    echo "Adding Mesa Vulkan support";
+    echo "Adding Mesa Vulkan support (LLVMPIPE and PanVK)";
     sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-tools;
+    echo "You need to use \"PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1\" before a program or use the function to force it (Menu 5) if you want to use PanVK, otherwise LLVM pipe will be used";
     echo "Press any key";
     read;
     MenuTools;;
