@@ -515,6 +515,25 @@ function InstallDXVK {
   MainMenu
 }
 
+function InstallXonotic {
+	#  Downloading all the dependency for the game and for the compilation process
+ 	sudo apt install git build-essential automake libgmp-dev libjpeg-dev libsdl2-dev
+	sudo apt install libcurl4 rsync libpng16-16 libfreetype6 libvorbisfile3
+	sudo apt-get install autoconf automake build-essential curl git libtool libgmp-dev libjpeg-turbo8-dev libsdl2-dev libxpm-dev xserver-xorg-dev zlib1g-dev unzip zip
+	#Creating a working folder
+	mkdir ~/Games # Just pass to the next command if the folder already exist
+	cd ~/Games
+	mkdir Xonotic
+	cd Xonotic
+	# Downloading the last source from GIT (here the tutorial : https://gitlab.com/xonotic/xonotic/-/wikis/Git
+	git clone https://gitlab.com/xonotic/xonotic.git
+	cd xonotic
+	./all update -l best
+	# Compile, the "-r" is to remove debug flag
+	./all compile -r
+ 	
+}
+
 MainMenu
 exit
 echo "Don't show me this text"
