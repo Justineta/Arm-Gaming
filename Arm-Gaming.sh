@@ -93,9 +93,65 @@ function DoTheBasics {
 }
 
 function MenuTools {
-  echo "Not implemented yet"
-  echo "Press any key"
-  read
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="Improving Tools"
+  MENU="Choose one of the following options:"
+  OPTIONS=(
+    1 "1. Force OpenGL 3 support on Mali GPU"
+    2 "2. Force OpenGL 3 support on Raspberry Pi GPU"
+    3 "3. Use the last Panfrost drivers (for Mali GPU only) with gallium nine support"
+    4 "4. Later"
+    5 "5. Later"
+    6 "6. Return to the main menu"
+  	)
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  
+  clear
+  case $CHOICE in
+  1)
+    echo "Allowing Panfrost to use OpenGL 3.3 (a beta and partial support who generally do the job)";
+    sudo bash -c "echo 'PAN_MESA_DEBUG=gl3' >> /etc/environment"; 
+    echo "Only do it ones, reboot if you want to use this tricks";
+    echo "Press any key";
+    read;
+    MenuTools;;
+  2)
+    sudo bash -c "echo 'MESA_GL_VERSION_OVERRIDE=3.3' >> /etc/environment";
+    sudo bash -c "echo 'MESA_GLSL_VERSION_OVERRIDE=330' >> /etc/environment"; 
+    echo "Only do it ones, reboot if you want to use this tricks";    
+    echo "Press any key";
+    read;
+    MenuTools;;
+  3)
+    echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)"
+    ## Adding a PPA with the lastest mesa drivers
+    sudo add-apt-repository ppa:oibaf/graphics-drivers
+    sudo apt update
+    sudo apt full-upgrade
+    echo "Press any key";
+    read;
+    MenuTools;;
+  4)
+    echo "Press any key";
+    read;
+    MenuTools;;
+  5)
+    echo "Press any key";
+    read;
+    MenuTools;;
+  6)
+    MainMenu;;
+          
+  esac
   MainMenu
 }
 
@@ -557,11 +613,6 @@ sudo apt update && sudo apt install build-essential git curl libxpresent1
 # proceed to add the repo using instructions above
 #sudo apt-get install box86-rpi4arm64:armhf
 
-echo "Allowing Panfrost to use OpenGL 3.3 (a beta and partial support who generally do the job)"
-## Add env variable to force OpenGL 3.x
-sudo bash -c "echo 'PAN_MESA_DEBUG=gl3' >> /etc/environment"
-
-echo "Adding multiarch support"
 
 echo "Installing Wine with Kron4ek precompiled amd64 version"
 ## Installing Wine x86_64
@@ -603,11 +654,7 @@ W_OPT_UNATTENDED=1 winetricks mfc42 vcrun6 vcrun2003 xact d3drm d3dx9_43 d3dcomp
 ## DXVK part : not for the moment, work to do with mesa panvk
 #winetricks dxvk
 
-echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)"
-## Adding a PPA with the lastest mesa drivers
-sudo add-apt-repository ppa:oibaf/graphics-drivers
-sudo apt update
-sudo apt upgrade
+
 
 # Some other choise who can be implemented later
 #    Decide to not use oibaf (i.e. keep the MESA drivers that originally shipped with your system); or
