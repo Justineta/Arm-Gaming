@@ -103,7 +103,7 @@ function MenuTools {
     1 "1. Force OpenGL 3 support on Mali GPU"
     2 "2. Force OpenGL 3 support on Raspberry Pi GPU"
     3 "3. Use the last Panfrost drivers (for Mali GPU only) with gallium nine support"
-    4 "4. Later"
+    4 "4. Add mesa Vulkan support (do step 3 before to have the lastest Panfrost drivers and try to use PanVK)"
     5 "5. Later"
     6 "6. Return to the main menu"
   	)
@@ -134,17 +134,20 @@ function MenuTools {
   3)
     echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)"
     ## Adding a PPA with the lastest mesa drivers
-    sudo add-apt-repository ppa:oibaf/graphics-drivers
-    sudo apt update
-    sudo apt full-upgrade
+    sudo add-apt-repository ppa:oibaf/graphics-drivers;
+    sudo apt update;
+    sudo apt full-upgrade;
     echo "Press any key";
     read;
     MenuTools;;
   4)
+    echo "Adding Mesa Vulkan support"
+    sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-tools
     echo "Press any key";
     read;
     MenuTools;;
   5)
+    add
     echo "Press any key";
     read;
     MenuTools;;
