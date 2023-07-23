@@ -254,7 +254,8 @@ function MenuBenchmark {
     4 "4. 	Benchmark RAM"
     5 "5. 	Benchmark I/O"
     6 "6. 	Install and launch GLmark2 (OpenGL 2 Benchmark)"
-    7 "7. Return to the main menu"
+    7 "7. 	Install and launch HardInfo"
+    8 "8. Return to the main menu"
 	)
   
   CHOICE=$(dialog --clear \
@@ -299,6 +300,12 @@ function MenuBenchmark {
     read;
     MenuBenchmark;;
   7)
+    sudo apt install hardinfo;
+    hardinfo;
+    echo "Press any key";
+    read;
+    MenuBenchmark;;
+  8)
     MainMenu;;
           
   esac
@@ -517,8 +524,8 @@ function InstallDXVK {
 
 function Xonotic {
 	#  Downloading all the dependency for the game and for the compilation process
- 	sudo apt install git build-essential automake libgmp-dev libjpeg-dev libsdl2-dev
-	sudo apt install libcurl4 rsync libpng16-16 libfreetype6 libvorbisfile3
+ 	#sudo apt install git build-essential automake libgmp-dev libjpeg-dev libsdl2-dev
+	#sudo apt install libcurl4 rsync libpng16-16 libfreetype6 libvorbisfile3
 	sudo apt-get install autoconf automake build-essential curl git libtool libgmp-dev libjpeg-turbo8-dev libsdl2-dev libxpm-dev xserver-xorg-dev zlib1g-dev unzip zip
 	#Creating a working folder
 	mkdir ~/Games # Just pass to the next command if the folder already exist
