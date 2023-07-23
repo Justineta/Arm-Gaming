@@ -107,7 +107,7 @@ function MenuNativeGames {
   TITLE="Native game"
   MENU="Choose one of the following options:"
   OPTIONS=(
-    1 "1. Open Arena, a quake based fast FPS"
+    1 "1. Flare, Diablo like RPG"
     2 "2. Xmoto, a 2D moto challenging game"
     3 "3. Super Tux Kart, an arcade 3D racing game"
     4 "4. Super Tux, a story plateformer"
@@ -125,10 +125,10 @@ function MenuNativeGames {
   clear
   case $CHOICE in
   1)
-    sudo apt install openarena openarena-oacmp1; 
+    sudo apt install flare; 
     echo "";
-    echo "Type \"openarena\" in a terminal to play it";
-    echo "Type \"sudo apt autoremove openarena openarena-oacmp1\" to remove the game";
+    echo "Type \"flare\" in a terminal to play it";
+    echo "Type \"sudo apt autoremove flare\" to remove the game";
     echo "Press any key";
     read;
     MenuNativeGames;;
@@ -344,7 +344,7 @@ function InstallBox86 {
   clear
   case $CHOICE in
   1)
-    echo "+If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
     read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	    case $yn in
@@ -362,7 +362,7 @@ function InstallBox86 {
     read;
     InstallBox86;;
   2)
-	echo "++If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
 		read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	   	case $yn in
@@ -433,7 +433,7 @@ function InstallBox64 {
   clear
   case $CHOICE in
   1)
-    echo "-If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
     read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	    case $yn in
@@ -450,7 +450,7 @@ function InstallBox64 {
     read;
     InstallBox64;;
   2)
-	echo "--If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
 		read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	   	case $yn in
