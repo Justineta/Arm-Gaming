@@ -342,7 +342,7 @@ function InstallBox86 {
 	while true; do
     read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	    case $yn in
-	        [Yy]* ) dpkg --add-architecture armhf;
+	        [Yy]* ) sudo dpkg --add-architecture armhf;
 	 		sudo apt update;
 	 		sudo apt install box86;
 		 	echo "Press any key";
