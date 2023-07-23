@@ -361,7 +361,7 @@ function InstallBox86 {
 		read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	   	case $yn in
 		  [Yy]* ) 
-		 	dpkg --add-architecture armhf;
+		 	sudo dpkg --add-architecture armhf;
 			## https://github.com/Justineta/BOX86-BOX64-WINEx86-TUTORIAL for the base script
 			echo "Installing things like build-essential and git from repo";
 			sudo apt update && sudo apt install build-essential git curl;
@@ -394,10 +394,8 @@ function InstallBox86 {
     echo "Press any key";
     read;
     InstallBox86;;
-    ;;
   6)
-    MenuBoxWine
-    ;;
+    MenuBoxWine;;
           
   esac
   MenuBoxWine
@@ -483,10 +481,8 @@ function InstallBox64 {
     echo "Press any key";
     read;
     InstallBox64;;
-    ;;
   6)
-    MenuBoxWine
-    ;;
+    MenuBoxWine;;
           
   esac
   MenuBoxWine
