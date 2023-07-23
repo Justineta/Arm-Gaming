@@ -73,7 +73,7 @@ function MainMenu {
 
 function DoTheBasics {
 	echo "Installing things like build-essential, git, curl, and some gaming libs for arm 32 bits and 64 bits"
-	dpkg --add-architecture armhf
+	sudo dpkg --add-architecture armhf
  	sudo apt update
  	sudo apt install build-essential git curl
 	sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf \
