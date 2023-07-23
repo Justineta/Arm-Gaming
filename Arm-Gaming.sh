@@ -104,8 +104,9 @@ function MenuTools {
     2 "2. Force OpenGL 3 support on Raspberry Pi GPU"
     3 "3. Use the last Panfrost drivers (for Mali GPU only) with gallium nine support"
     4 "4. Add mesa Vulkan support (do step 3 before to have the lastest Panfrost drivers and try to use PanVK)"
-    5 "5. Later"
-    6 "6. Return to the main menu"
+    5 "5. Force PanVK usage in environnement variable"
+    6 "6. Print driver info for OpenGL and Vulkan in a file"
+    7 "7. Return to the main menu"
   	)
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
@@ -132,7 +133,7 @@ function MenuTools {
     read;
     MenuTools;;
   3)
-    echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)"
+    echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)";
     ## Adding a PPA with the lastest mesa drivers
     sudo add-apt-repository ppa:oibaf/graphics-drivers;
     sudo apt update;
@@ -141,17 +142,30 @@ function MenuTools {
     read;
     MenuTools;;
   4)
-    echo "Adding Mesa Vulkan support"
-    sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-tools
+    echo "Adding Mesa Vulkan support";
+    sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-tools;
     echo "Press any key";
     read;
     MenuTools;;
   5)
-    add
+    echo "Force the partial panVK implementation (not recommanded)";
+    echo "Remove the line \"PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1\" from /etc/environment if you want to remove it later";
+    sudo bash -c "echo 'PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1' >> /etc/environment"; 
+    echo "Only do it ones, reboot if you want to use this tricks";
     echo "Press any key";
     read;
     MenuTools;;
   6)
+    sudo apt install mesa-utils vulkan-tools;
+    echo "Print OpenGL info";
+    glxinfo -B;
+    glxinfo >> ~/glxinfo.txt;
+    vulkaninfo >> ~/vulkaninfo.txt;
+    echo "~/glxinfo.txt and ~/vulkaninfo.txt file created in the home folder";
+    echo "Press any key";
+    read;
+    MenuTools;;
+  7)
     MainMenu;;
           
   esac
@@ -597,6 +611,7 @@ function Xonotic {
 	./all update -l best
 	# Compile, the "-r" is to remove debug flag
 	./all compile -r
+ 	cd
  	
 }
 
@@ -682,3 +697,10 @@ sudo apt install xosd-bin mesa-utils mangohud
 ## Gamescope last version here https://github.com/Plagman/gamescope
 ## Gamescope seems to not get intregrated in the repo so compile it
 sudo pat install meson
+
+
+# https://github.com/neofeo/BOX86-BOX64-WINEx86-TUTORIAL
+# https://github.com/NicoD-SBC/armbian-gaming/blob/main/armbian-gaming.sh
+# https://github.com/ptitSeb/box86
+# https://github.com/ptitSeb/box64
+
