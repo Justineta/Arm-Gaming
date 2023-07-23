@@ -64,7 +64,7 @@ function MainMenu {
     ;;
   9)
     echo "A plus et bon appétit ! "
-	  exit
+	exit
     ;;
           
   esac
@@ -253,7 +253,8 @@ function MenuBenchmark {
     3 "3.	Benchmark CPU multithread"
     4 "4. 	Benchmark RAM"
     5 "5. 	Benchmark I/O"
-    6 "6. Return to the main menu"
+    6 "6. 	Install and launch GLmark2 (OpenGL 2 Benchmark)"
+    7 "7. Return to the main menu"
 	)
   
   CHOICE=$(dialog --clear \
@@ -292,8 +293,13 @@ function MenuBenchmark {
     read;
     MenuBenchmark;;
   6)
-    MainMenu
-    ;;
+    sudo apt install glmark2;
+    glmark2;
+    echo "Press any key";
+    read;
+    MenuBenchmark;;
+  7)
+    MainMenu;;
           
   esac
   MainMenu
@@ -338,7 +344,7 @@ function InstallBox86 {
   clear
   case $CHOICE in
   1)
-    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+    echo "+If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
     read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	    case $yn in
@@ -356,7 +362,7 @@ function InstallBox86 {
     read;
     InstallBox86;;
   2)
-	echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	echo "++If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
 		read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	   	case $yn in
@@ -427,7 +433,7 @@ function InstallBox64 {
   clear
   case $CHOICE in
   1)
-    echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+    echo "-If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
     read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	    case $yn in
@@ -444,7 +450,7 @@ function InstallBox64 {
     read;
     InstallBox64;;
   2)
-	echo "If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
+	echo "--If you have a Rockship RK3588 or RK3588S, it could not work, it is advised to build it from source";
 	while true; do
 		read -p "If you have a RK3588 or RK3588S, do you really want to try it ? (y/n) " yn;
 	   	case $yn in
@@ -517,7 +523,7 @@ echo "Don't show me this text"
 echo "Installing things like build-essential and git from repo"
 sudo apt update && sudo apt install build-essential git curl libxpresent1
 
-## libxpresent1 seems to be needed on my side for winetricks to work
+
 
 ## And box86:armhf (https://box86.debian.ryanfortner.dev/)(not needed)
 #sudo dpkg --add-architecture armhf
@@ -530,9 +536,6 @@ echo "Allowing Panfrost to use OpenGL 3.3 (a beta and partial support who genera
 sudo bash -c "echo 'PAN_MESA_DEBUG=gl3' >> /etc/environment"
 
 echo "Adding multiarch support"
-## Adding armhf support with multiarch
-sudo dpkg --add-architecture armhf
-sudo apt update
 
 echo "Installing Wine with Kron4ek precompiled amd64 version"
 ## Installing Wine x86_64
@@ -559,12 +562,7 @@ echo "Configure Wine, install mono and all the things the soft ask and put it in
 read -p "press any key if you read the text above "
 winecfg
 
-echo "Installing a bunch of libs for gaming (arm64 and armhf)"
-## Interesting libs for gaming
-sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf \
-  libgtk2.0-0:armhf libstdc++6:armhf libsdl2-2.0-0:armhf mesa-va-drivers:armhf libsdl-mixer1.2:armhf \
-  libpng16-16:armhf libsdl2-net-2.0-0:armhf libopenal1:armhf libsdl2-image-2.0-0:armhf libjpeg62:armhf \
-  libudev1:armhf libgl1-mesa-dev:armhf libx11-dev:armhf libsdl2-image-2.0-0:armhf libsdl2-mixer-2.0-0:armhf
+## libxpresent1 seems to be needed on my side for winetricks to work
 
 echo "Installing Winetricks"
 ## Installing Winetricks https://github.com/Winetricks/winetricks
