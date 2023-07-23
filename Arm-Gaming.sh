@@ -515,7 +515,7 @@ function InstallDXVK {
   MainMenu
 }
 
-function InstallXonotic {
+function Xonotic {
 	#  Downloading all the dependency for the game and for the compilation process
  	sudo apt install git build-essential automake libgmp-dev libjpeg-dev libsdl2-dev
 	sudo apt install libcurl4 rsync libpng16-16 libfreetype6 libvorbisfile3
