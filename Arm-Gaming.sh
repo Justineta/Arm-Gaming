@@ -484,7 +484,7 @@ function InstallBox86 {
     	read;
     	InstallBox86;;
   3)    
-	sudo apt autoremove box86
+	sudo apt autoremove box86 box86-generic-arm
 	echo "Press any key";
     	read;
     	InstallBox86;;
@@ -571,7 +571,7 @@ function InstallBox64 {
     	read;
     	InstallBox64;;
   3)    
-	sudo apt autoremove box64
+	sudo apt autoremove box64 box64-arm64
 	echo "Press any key";
     	read;
     	InstallBox64;;
