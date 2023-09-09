@@ -472,7 +472,7 @@ function InstallBox86 {
 			## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://box86.debian.ryanfortner.dev/) 
 			sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
 			wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
-			sudo apt update && sudo apt install box86 -y;
+			sudo apt update && sudo apt install box86-generic-arm;
 	 		echo "Press any key";
 	 		read;
 	 		InstallBox86;;
@@ -559,7 +559,7 @@ function InstallBox64 {
 			## Adding Box86 repo with command from Ryan Fortner repo because I have issue with microlinux command (https://github.com/ryanfortner/box64-debs) 
 			sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list;
 			wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg;
-			sudo apt update && sudo apt install box64 -y;
+			sudo apt update && sudo apt install box64-arm64;
 	 		echo "Press any key";
 	 		read;
 	 		InstallBox64;;
