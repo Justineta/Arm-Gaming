@@ -102,11 +102,12 @@ function MenuTools {
   OPTIONS=(
     1 "1. Force OpenGL 3 support on Mali GPU"
     2 "2. Force OpenGL 3 support on Raspberry Pi GPU"
-    3 "3. Use the last Panfrost drivers (for Mali GPU only) with gallium nine support"
-    4 "4. Add mesa Vulkan support (do step 3 before to have the lastest Panfrost drivers and try to use PanVK)"
-    5 "5. Force PanVK usage in environnement variable"
-    6 "6. Print driver info for OpenGL and Vulkan in a file"
-    7 "7. Return to the main menu"
+    3 "3. Use lastest Panfrost drivers (for Mali GPU only) with gallium nine support"
+    4 "4. Remove lastest Panfrost driver to return to distrib provided package"
+    5 "5. Add mesa Vulkan support (do step 3 before to have the lastest Panfrost drivers and try to use PanVK)"
+    6 "6. Force PanVK usage in environnement variable"
+    7 "7. Print driver info for OpenGL and Vulkan in a file"
+    8 "8. Return to the main menu"
   	)
   CHOICE=$(dialog --clear \
                   --backtitle "$BACKTITLE" \
@@ -135,6 +136,9 @@ function MenuTools {
   3)
     echo "Adding and updating to the last mesa drivers (and Gallium Nine for native DirectX 9 support)";
     ## Adding a PPA with the lastest mesa drivers
+    ## https://www.phoronix.com/forums/forum/linux-graphics-x-org-drivers/opengl-vulkan-mesa-gallium3d/24959-updated-and-optimized-ubuntu-free-graphics-drivers?50038-Updated-and-Optimized-Ubuntu-Free-Graphics-Drivers=
+    ## https://wiki.ixit.cz/d3d9
+    ## https://launchpad.net/~oibaf/+archive/ubuntu/graphics-drivers
     sudo add-apt-repository ppa:oibaf/graphics-drivers;
     sudo apt update;
     sudo apt full-upgrade;
@@ -142,13 +146,23 @@ function MenuTools {
     read;
     MenuTools;;
   4)
+    echo "Removing lastest mesa drivers to return to distrubution provided graphic driver";
+    ## Adding a PPA with the lastest mesa drivers
+    sudo ppa-purge ppa:oibaf/graphics-drivers;
+    sudo ppa-purge ppa:oibaf/graphics-drivers;
+    sudo apt update;
+    sudo apt full-upgrade;
+    echo "Press any key";
+    read;
+    MenuTools;;
+  5)
     echo "Adding Mesa Vulkan support (LLVMPIPE and PanVK)";
     sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-tools;
     echo "You need to use \"PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1\" before a program or use the function to force it (Menu 5) if you want to use PanVK, otherwise LLVM pipe will be used";
     echo "Press any key";
     read;
     MenuTools;;
-  5)
+  6)
     echo "Force the partial panVK implementation (not recommanded)";
     echo "Remove the line \"PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1\" from /etc/environment if you want to remove it later";
     sudo bash -c "echo 'PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1' >> /etc/environment"; 
@@ -156,7 +170,7 @@ function MenuTools {
     echo "Press any key";
     read;
     MenuTools;;
-  6)
+  7)
     sudo apt install mesa-utils vulkan-tools;
     echo "Print OpenGL info";
     glxinfo -B;
@@ -166,7 +180,7 @@ function MenuTools {
     echo "Press any key";
     read;
     MenuTools;;
-  7)
+  8)
     MainMenu;;
           
   esac
@@ -346,24 +360,24 @@ function MenuBenchmark {
     sudo apt install sysbench;
     MenuBenchmark;;
   2)
-    sysbench --test=cpu run;
+    sysbench cpu run;
     echo "Press any key";
     read;
     MenuBenchmark;;
   3)    
     Logical_Core_Number=$(nproc --all);
-    sysbench --test=cpu --num-threads=$Logical_Core_Number run;
+    sysbench cpu --threads=$Logical_Core_Number run;
     echo "Press any key";
     read;
     MenuBenchmark;;
   4)
-    sysbench --test=memory run;
+    sysbench memory run;
     echo "Press any key";
     read;
     MenuBenchmark;;
   5)
-    sysbench --test=fileio --file-test-mode=seqwr run;
-    sysbench --test=fileio --file-test-mode=seqwr cleanup;
+    sysbench fileio --file-test-mode=seqwr run;
+    sysbench fileio --file-test-mode=seqwr cleanup;
     echo "Press any key";
     read;
     MenuBenchmark;;
@@ -385,6 +399,9 @@ function MenuBenchmark {
   esac
   MainMenu
 }
+
+## For the future add some benchmark.unigine.com 
+## https://wiki.archlinux.org/title/benchmarking
 
 function Greetings {
   echo "This script is based on some good scripts and videos : "
