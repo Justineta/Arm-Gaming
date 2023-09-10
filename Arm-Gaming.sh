@@ -4,6 +4,7 @@
 ## Gaming with Armbian
 ## @Justineta 
 
+cd ~/
 echo "Warning this script is incomplete and only tested with Armbian at the moment !!!"
 echo "Arm-Gaming version 0.2 by Justineta"
 echo "Press Enter to try it anyway"
@@ -63,11 +64,10 @@ function MainMenu {
     Greetings
     ;;
   9)
-    echo "A plus et bon appétit ! "
-	exit
-    ;;
-          
+    echo "A plus et bon appétit ! ";
+		exit;;
   esac
+	
 }
 
 
@@ -79,7 +79,8 @@ function DoTheBasics {
 	sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf \
   		libgtk2.0-0:armhf libstdc++6:armhf libsdl2-2.0-0:armhf mesa-va-drivers:armhf libsdl-mixer1.2:armhf \
   		libpng16-16:armhf libsdl2-net-2.0-0:armhf libopenal1:armhf libsdl2-image-2.0-0:armhf libjpeg62:armhf \
-  		libudev1:armhf libgl1-mesa-dev:armhf libx11-dev:armhf libsdl2-image-2.0-0:armhf libsdl2-mixer-2.0-0:armhf libvulkan1 libvulkan1:armhf
+  		libudev1:armhf libgl1-mesa-dev:armhf libx11-dev:armhf libsdl2-image-2.0-0:armhf libsdl2-mixer-2.0-0:armhf \
+		  libvulkan1 libvulkan1:armhf gcc-arm-linux-gnueabihf libc6-dev-armhf-cross ;
 	echo "build-essential git curl and other libs for gaming successfully installed, bravo"
 	while true; do
     	read -p "Do you want to do a general update and reboot ? (y/n) " yn
@@ -429,7 +430,7 @@ function InstallBox86 {
     3 "3. Remove a Box86 installed with distro or Ryan Fortner repo"
     4 "4. Install Box86 from source (compilation)"
     5 "5. Remove a Box86 version installed from de source"
-    6 "6. Return to the Box/Wine menu menu"
+    6 "6. Return to the Box/Wine menu"
 	)
   
   CHOICE=$(dialog --clear \
@@ -489,7 +490,84 @@ function InstallBox86 {
     	read;
     	InstallBox86;;
   4)
-    echo "Not implemented yet, see : https://github.com/ptitSeb/box86/blob/master/docs/COMPILE.md for more info";
+    HEIGHT=15
+    WIDTH=80
+    CHOICE_HEIGHT=4
+    BACKTITLE="Arm-Gaming"
+    TITLE="Box86"
+    MENU="Choose one of the following options:"
+    OPTIONS=(
+      1 "1. Compile for Pandora"
+      2 "2. Compile for Pyra"
+      3 "3. Compile for Gameshell"
+      4 "4. Compile for Raspberry Pi 2 or 3"
+      5 "5. Compile for Rapsberry Pi 4 32 bit OS (armhf)"
+      6 "6. Compile for Raspberry Pi 4 64 bit OS (arm64"
+      7 "7. Compile for ODROID N2 or N2+ or N2L (AmLogic S922X)"
+      8 "8. Compile for another ODROID"
+      9 "9. Compile for a Rockchip RK3399 or RK3399Pro"
+      10 "10. Compile for a Rockchip RK3588 or RK3588S"
+      11 "11. Compile for a Rockchip RK3288 (Tinker Borad 1/1S)"
+      12 "12. Compile for a Snapdragon 845"
+      13 "13. Compile for Allwinner A64"
+      14 "14. Compile for Phytium (D2000 or FT2000/4)"
+      15 "15 Compile for a generic ARM64 64 bit OS platform"
+      16 "16. Compile for a generic ARM platform"
+      17 "17. Return to the Box86 menu"
+	)
+      CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+    clear
+    case $CHOICE in
+    1)
+      COMPILATION_INSTRUCTION="-DPANDORA=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    2)
+      COMPILATION_INSTRUCTION="-DPYRA=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    3)
+      COMPILATION_INSTRUCTION="-DGAMESHELL=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    4)
+      COMPILATION_INSTRUCTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    5)
+      COMPILATION_INSTRUCTION="-DRPI4=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    6)
+      COMPILATION_INSTRUCTION="-DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    7)
+      COMPILATION_INSTRUCTION="-DODROIDN2=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    8)
+      COMPILATION_INSTRUCTION="-DODROID=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    9)
+      COMPILATION_INSTRUCTION="-DRK3399=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    10)
+      COMPILATION_INSTRUCTION="-DRK3588=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    11)
+      COMPILATION_INSTRUCTION="-DRK3288=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    12)
+      COMPILATION_INSTRUCTION="-DSD845=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    13)
+      COMPILATION_INSTRUCTION="-DA64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    14)
+      COMPILATION_INSTRUCTION="-DPHYTIUM=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    15)
+      COMPILATION_INSTRUCTION="-DARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    16)
+      COMPILATION_INSTRUCTION="-DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+    17)
+      InstallBox86;;
+    esac;
+    
+    cd ~/ ;
+    git clone https://github.com/ptitSeb/box86 \
+    && cd box86 \
+    && mkdir build \
+    && cd build ;
+    cmake .. $COMPILATION_INSTRUCTION \
+    && make -j3 && echo "Compilation completed";
+		sudo make install && sudo systemctl restart systemd-binfmt && echo "Installation completed";
     echo "Press Enter";
     read;
     InstallBox86;;
