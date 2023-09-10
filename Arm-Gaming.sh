@@ -619,25 +619,26 @@ function InstallWine {
   clear
   case $CHOICE in
   1)
-    wget -O ~/wine-7.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/7.0/wine-7.0-x86.tar.xz ;
-    tar -xf ~/wine-7.0-x86.tar.xz -C ~/ ;
-    mv ~/wine-7.0-x86 ~/wine ;
-    rm ~/wine-7.0-x86.tar.xz ;
-    echo "Installation completed for Wine 7.0";
+    wget -O ~/wine-7.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/7.0/wine-7.0-x86.tar.xz \
+    && tar -xf ~/wine-7.0-x86.tar.xz -C ~/ \
+    && mv ~/wine-7.0-x86 ~/wine \
+    && rm ~/wine-7.0-x86.tar.xz \
+    && echo "Installation completed for Wine 7.0";
     echo "Press Enter";
     read;
     InstallWine;;
   2)
-    wget -O ~/wine-8.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/8.0/wine-8.0-x86.tar.xz ;
-    tar -xf ~/wine-8.0-x86.tar.xz -C ~/ ;
-    mv ~/wine-8.0-x86 ~/wine ;
-    rm ~/wine-8.0-x86.tar.xz;
-    echo "Installation completed for Wine 8.0";
+    wget -O ~/wine-8.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/8.0/wine-8.0-x86.tar.xz \
+    && tar -xf ~/wine-8.0-x86.tar.xz -C ~/ \
+    && mv ~/wine-8.0-x86 ~/wine \
+    && rm ~/wine-8.0-x86.tar.xz \
+    && echo "Installation completed for Wine 8.0";
     echo "Press Enter";
     read;
     InstallWine;;
   3)    
-    rm -r ~/wine;
+    rm -r ~/wine \
+    && echo "Installation removed";
     echo "Press Enter";
     read;
     InstallWine;;
@@ -655,7 +656,7 @@ function InstallWine {
     sudo ln -s ~/wine/bin/wine /usr/local/bin/ ;
     sudo ln -s ~/wine/bin/winecfg /usr/local/bin/ ;
     sudo ln -s ~/wine/bin/wineserver /usr/local/bin/ ;
-	sudo ln -s ~/wine/bin/wine64 /usr/local/bin/ ;
+    sudo ln -s ~/wine/bin/wine64 /usr/local/bin/ ;
     echo "Press Enter";
     read;
     InstallWine;;
