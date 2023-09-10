@@ -619,18 +619,18 @@ function InstallWine {
   case $CHOICE in
   1)
     wget -O ~/wine-7.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/7.0/wine-7.0-x86.tar.xz ;
-    && tar -xf ~/wine-7.0-x86.tar.xz -C ~/ ;
-    && mv ~/wine-7.0-x86 ~/wine ;
-    && rm ~/wine-7.0-x86.tar.xz ;
+    tar -xf ~/wine-7.0-x86.tar.xz -C ~/ ;
+    mv ~/wine-7.0-x86 ~/wine ;
+    rm ~/wine-7.0-x86.tar.xz ;
     echo "Installation completed for Wine 7.0";
     echo "Press any key";
     read;
     InstallWine;;
   2)
     wget -O ~/wine-8.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/8.0/wine-8.0-x86.tar.xz ;
-    && tar -xf ~/wine-8.0-x86.tar.xz -C ~/ ;
-    && mv ~/wine-8.0-x86 ~/wine ;
-    && rm ~/wine-8.0-x86.tar.xz;
+    tar -xf ~/wine-8.0-x86.tar.xz -C ~/ ;
+    mv ~/wine-8.0-x86 ~/wine ;
+    rm ~/wine-8.0-x86.tar.xz;
     echo "Installation completed for Wine 8.0";
     echo "Press any key";
     read;
