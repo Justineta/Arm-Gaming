@@ -815,7 +815,8 @@ function InstallWinetricks {
   wget -q https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
   && chmod +x winetricks \
   && sudo mv winetricks /usr/local/bin/ \
-  && echo "Winetricks installed";
+  && echo "Winetricks installed" \
+  && W_OPT_UNATTENDED=1 winetricks mfc42 vcrun6 vb6run xact d3drm d3dx9 d3dx9_43 d3dcompiler_43 msxml3 vcrun2003 vcrun2005 vcrun2008 \
   echo "Press Enter";
   read;
   MainMenu;
