@@ -525,37 +525,37 @@ function InstallBox86 {
     clear
     case $CHOICE in
     1)
-      COMPILATION_INSTRUCTION="-DPANDORA=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D PANDORA=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     2)
-      COMPILATION_INSTRUCTION="-DPYRA=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D PYRA=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     3)
-      COMPILATION_INSTRUCTION="-DGAMESHELL=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D GAMESHELL=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     4)
-      COMPILATION_INSTRUCTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     5)
-      COMPILATION_INSTRUCTION="-DRPI4=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D RPI4=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     6)
-      COMPILATION_INSTRUCTION="-DRPI4ARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D RPI4ARM64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     7)
-      COMPILATION_INSTRUCTION="-DODROIDN2=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D ODROIDN2=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     8)
-      COMPILATION_INSTRUCTION="-DODROID=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D ODROID=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     9)
-      COMPILATION_INSTRUCTION="-DRK3399=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D RK3399=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     10)
-      COMPILATION_INSTRUCTION="-DRK3588=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D RK3588=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     11)
-      COMPILATION_INSTRUCTION="-DRK3288=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D RK3288=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     12)
-      COMPILATION_INSTRUCTION="-DSD845=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D SD845=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     13)
-      COMPILATION_INSTRUCTION="-DA64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D A64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     14)
-      COMPILATION_INSTRUCTION="-DPHYTIUM=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D PHYTIUM=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     15)
-      COMPILATION_INSTRUCTION="-DARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D ARM64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     16)
-      COMPILATION_INSTRUCTION="-DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo";;
+      COMPILATION_INSTRUCTION="-D ARM_DYNAREC=ON -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
     17)
       InstallBox86;;
     esac;
@@ -567,12 +567,13 @@ function InstallBox86 {
     && cd build ;
     cmake .. $COMPILATION_INSTRUCTION \
     && make -j3 && echo "Compilation completed";
-		sudo make install && sudo systemctl restart systemd-binfmt && echo "Installation completed";
+		sudo make install && sudo systemctl restart systemd-binfmt \
+	  && echo "Installation completed";
     echo "Press Enter";
     read;
     InstallBox86;;
   5)
-    echo "Not implemented yet";
+    cd ~/box86/build && sudo make uninstall && echo "Succefully removed";
     echo "Press Enter";
     read;
     InstallBox86;;
@@ -654,12 +655,69 @@ function InstallBox64 {
     	read;
     	InstallBox64;;
   4)
-    echo "Not implemented yet, see : https://github.com/ptitSeb/box86/blob/master/docs/COMPILE.md for more info";
+    HEIGHT=15
+    WIDTH=80
+    CHOICE_HEIGHT=4
+    BACKTITLE="Arm-Gaming"
+    TITLE="Box64"
+    MENU="Choose one of the following options:"
+    OPTIONS=(
+      1 "1. Compile for Raspberry Pi 3"
+      2 "2. Compile for Raspberry Pi 4 64 bit OS (arm64)"
+      3 "3. Compile for ODROID N2 or N2+ or N2L (AmLogic S922X)"
+      4 "4. Compile for a Rockchip RK3399 or RK3399Pro"
+      5 "5. Compile for a Rockchip RK3588 or RK3588S"
+      6 "6. Compile for a Nvidia Tegra X1"
+      7 "7. Compile for a Snapdragon 845"
+      8 "8. Compile for Phytium (D2000 or FT2000/4)"
+      9 "9 Compile for a generic ARM64 64 bit OS platform"
+      10 "10. Return to the Box86 menu"
+	)
+      CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+    clear
+    case $CHOICE in
+    1)
+      COMPILATION_INSTRUCTION="-D RPI3ARM64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    2)
+      COMPILATION_INSTRUCTION="-D RPI4ARM64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    3)
+      COMPILATION_INSTRUCTION="-D ODROIDN2=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    4)
+      COMPILATION_INSTRUCTION="-D RK3399=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    5)
+      COMPILATION_INSTRUCTION="-D RK3588=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    6)
+      COMPILATION_INSTRUCTION="-D TEGRAX1=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    7)
+      COMPILATION_INSTRUCTION="-D SD845=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    8)
+      COMPILATION_INSTRUCTION="-D PHYTIUM=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    9)
+      COMPILATION_INSTRUCTION="-D ARM64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo";;
+    10)
+      InstallBox86;;
+    esac;
+    
+    cd ~/ ;
+    git clone https://github.com/ptitSeb/box64 \
+    && cd box64 \
+    && mkdir build \
+    && cd build ;
+    cmake .. $COMPILATION_INSTRUCTION \
+    && make -j3 && echo "Compilation completed";
+		sudo make install && sudo systemctl restart systemd-binfmt \
+	  && echo "Installation completed";
     echo "Press Enter";
     read;
     InstallBox64;;
   5)
-    echo "Not implemented yet";
+    cd ~/box64/build && sudo make uninstall && echo "Succefully removed";
     echo "Press Enter";
     read;
     InstallBox64;;
