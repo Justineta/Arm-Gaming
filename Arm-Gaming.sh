@@ -812,12 +812,13 @@ function InstallWine {
 }
 
 function InstallWinetricks {
-  wget -q https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-  chmod +x winetricks
-  sudo mv winetricks /usr/local/bin/
-  echo "Press Enter"
-  read
-  MainMenu
+  wget -q https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+  && chmod +x winetricks \
+  && sudo mv winetricks /usr/local/bin/ \
+  && echo "Winetricks installed";
+  echo "Press Enter";
+  read;
+  MainMenu;
 }
 
 function InstallDXVK {
