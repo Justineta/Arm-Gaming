@@ -593,10 +593,69 @@ function InstallBox64 {
 }
 
 function InstallWine {
-  echo "In the future"
-  echo "Press any key"
-  read
-  MainMenu
+  HEIGHT=15
+  WIDTH=80
+  CHOICE_HEIGHT=4
+  BACKTITLE="Arm-Gaming"
+  TITLE="Box64"
+  MENU="Choose one of the following options:"
+  OPTIONS=(
+    1 "1. Install Wine 7.0 (stable) from x86 Kron4ek package"
+    2 "2. Install Wine 8.0 (memory leak issue) from x86 Kron4ek package"
+    3 "3. Remove Wine 7.0 or 8.0"
+    4 "4. Install Wine from source (compilation)"
+    5 "5. Remove a Wine version installed from de source"
+    6 "6. Return to the Box/Wine menu menu"
+	)
+  
+  CHOICE=$(dialog --clear \
+                  --backtitle "$BACKTITLE" \
+                  --title "$TITLE" \
+                  --menu "$MENU" \
+                  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                  "${OPTIONS[@]}" \
+                  2>&1 >/dev/tty)
+  clear
+  case $CHOICE in
+  1)
+    wget -O ~/wine-7.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/7.0/wine-7.0-x86.tar.xz ;
+    && tar -xf ~/wine-7.0-x86.tar.xz -C ~/ ;
+    && mv ~/wine-7.0-x86 ~/wine ;
+    && rm ~/wine-7.0-x86.tar.xz ;
+    echo "Installation completed for Wine 7.0";
+    echo "Press any key";
+    read;
+    InstallWine;;
+  2)
+    wget -O ~/wine-8.0-x86.tar.xz https://github.com/Kron4ek/Wine-Builds/releases/download/8.0/wine-8.0-x86.tar.xz ;
+    && tar -xf ~/wine-8.0-x86.tar.xz -C ~/ ;
+    && mv ~/wine-8.0-x86 ~/wine ;
+    && rm ~/wine-8.0-x86.tar.xz;
+    echo "Installation completed for Wine 8.0";
+    echo "Press any key";
+    read;
+    InstallWine;;
+  3)    
+    rm -r ~/wine;
+    echo "Press any key";
+    read;
+    InstallWine;;
+  4)
+    echo "Not implemented yet";
+    echo "Press any key";
+    read;
+    InstallWine;;
+  5)
+    echo "Not implemented yet";
+    echo "Press any key";
+    read;
+    InstallWine;;
+  6)
+    MenuBoxWine;;
+## Later implement alternative wine version like Vanilla, Staging, Proton, Wayland...
+## https://github.com/Kron4ek/Wine-Builds
+  esac
+  MenuBoxWine
 }
 
 function InstallWinetricks {
@@ -716,6 +775,7 @@ sudo apt install xosd-bin mesa-utils mangohud
 ## Gamescope seems to not get intregrated in the repo so compile it
 sudo pat install meson
 
+## For FSR https://github.com/Kron4ek/Wine-Builds/releases/tag/6.12.1-092f3b1
 
 # https://github.com/neofeo/BOX86-BOX64-WINEx86-TUTORIAL
 # https://github.com/NicoD-SBC/armbian-gaming/blob/main/armbian-gaming.sh
