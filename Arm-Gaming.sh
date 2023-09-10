@@ -605,7 +605,8 @@ function InstallWine {
     3 "3. Remove Wine 7.0 or 8.0"
     4 "4. Install Wine from source (compilation)"
     5 "5. Remove a Wine version installed from de source"
-    6 "6. Return to the Box/Wine menu menu"
+    6 "6. Link wine to the system"
+    7 "7. Return to the Box/Wine menu menu"
 	)
   
   CHOICE=$(dialog --clear \
@@ -651,7 +652,16 @@ function InstallWine {
     read;
     InstallWine;;
   6)
+    sudo ln -s ~/wine/bin/wine /usr/local/bin/ ;
+    sudo ln -s ~/wine/bin/winecfg /usr/local/bin/ ;
+    sudo ln -s ~/wine/bin/wineserver /usr/local/bin/ ;
+	sudo ln -s ~/wine/bin/wine64 /usr/local/bin/ ;
+    echo "Press any key";
+    read;
+    InstallWine;;
+  7)
     MenuBoxWine;;
+ 
 ## Later implement alternative wine version like Vanilla, Staging, Proton, Wayland...
 ## https://github.com/Kron4ek/Wine-Builds
   esac
