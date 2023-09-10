@@ -123,14 +123,14 @@ function MenuTools {
     echo "Allowing Panfrost to use OpenGL 3.3 (a beta and partial support who generally do the job)";
     sudo bash -c "echo 'PAN_MESA_DEBUG=gl3' >> /etc/environment"; 
     echo "Only do it ones, reboot if you want to use this tricks";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   2)
     sudo bash -c "echo 'MESA_GL_VERSION_OVERRIDE=3.3' >> /etc/environment";
     sudo bash -c "echo 'MESA_GLSL_VERSION_OVERRIDE=330' >> /etc/environment"; 
     echo "Only do it ones, reboot if you want to use this tricks";    
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   3)
@@ -142,7 +142,7 @@ function MenuTools {
     sudo add-apt-repository ppa:oibaf/graphics-drivers;
     sudo apt update;
     sudo apt full-upgrade;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   4)
@@ -152,14 +152,14 @@ function MenuTools {
     sudo ppa-purge ppa:oibaf/graphics-drivers;
     sudo apt update;
     sudo apt full-upgrade;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   5)
     echo "Adding Mesa Vulkan support (LLVMPIPE and PanVK)";
     sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-tools;
     echo "You need to use \"PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1\" before a program or use the function to force it (Menu 5) if you want to use PanVK, otherwise LLVM pipe will be used";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   6)
@@ -167,7 +167,7 @@ function MenuTools {
     echo "Remove the line \"PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1\" from /etc/environment if you want to remove it later";
     sudo bash -c "echo 'PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1' >> /etc/environment"; 
     echo "Only do it ones, reboot if you want to use this tricks";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   7)
@@ -177,7 +177,7 @@ function MenuTools {
     glxinfo >> ~/glxinfo.txt;
     vulkaninfo >> ~/vulkaninfo.txt;
     echo "~/glxinfo.txt and ~/vulkaninfo.txt file created in the home folder";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuTools;;
   8)
@@ -217,7 +217,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"flare\" in a terminal to play it";
     echo "Type \"sudo apt autoremove flare\" to remove the game";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuNativeGames;;
   2)
@@ -225,7 +225,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"xmoto\" in a terminal to play it";
     echo "Type \"sudo apt autoremove xmoto\" to remove the game";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuNativeGames;;
   3)
@@ -233,7 +233,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"supertuxkart\" in a terminal to play it";
     echo "Type \"sudo apt autoremove supertuxkart\" to remove the game";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuNativeGames;;
   4)
@@ -241,7 +241,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"supertux\" in a terminal to play it";
     echo "Type \"sudo apt autoremove supertux\" to remove the game";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuNativeGames;;
   5)
@@ -249,7 +249,7 @@ function MenuNativeGames {
     echo "";
     echo "Type \"0ad\" in a terminal to play it";
     echo "Type \"sudo apt autoremove 0ad\" to remove the game";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuNativeGames;;
   6)
@@ -262,7 +262,7 @@ function MenuNativeGames {
 
 function MenuEmulators {
   echo "Not implemented yet"
-  echo "Press any key"
+  echo "Press Enter"
   read
   MainMenu
 }
@@ -295,23 +295,23 @@ function MenuBoxWine {
   case $CHOICE in
   1)
     InstallBox86;
-    echo "Press any key";
+    echo "Press Enter";
     read;;
   2)
     InstallBox64;
-    echo "Press any key";
+    echo "Press Enter";
     read;;
   3)    
     InstallWine;
-    echo "Press any key";
+    echo "Press Enter";
     read;;
   4)
     InstallWinetricks;
-    echo "Press any key";
+    echo "Press Enter";
     read;;
   5)
     InstallDXVK;
-    echo "Press any key";
+    echo "Press Enter";
     read;;
   6)
     MainMenu
@@ -323,7 +323,7 @@ function MenuBoxWine {
 
 function MenuPracticalTools {
   echo "Not implemented yet"
-  echo "Press any key"
+  echo "Press Enter"
   read
   MainMenu
 }
@@ -361,36 +361,36 @@ function MenuBenchmark {
     MenuBenchmark;;
   2)
     sysbench cpu run;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuBenchmark;;
   3)    
     Logical_Core_Number=$(nproc --all);
     sysbench cpu --threads=$Logical_Core_Number run;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuBenchmark;;
   4)
     sysbench memory run;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuBenchmark;;
   5)
     sysbench fileio --file-test-mode=seqwr run;
     sysbench fileio --file-test-mode=seqwr cleanup;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuBenchmark;;
   6)
     sudo apt install glmark2;
     glmark2;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuBenchmark;;
   7)
     sudo apt install hardinfo;
     hardinfo;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     MenuBenchmark;;
   8)
@@ -449,14 +449,14 @@ function InstallBox86 {
 	        [Yy]* ) sudo dpkg --add-architecture armhf;
 	 		sudo apt update;
 	 		sudo apt install box86;
-		 	echo "Press any key";
+		 	echo "Press Enter";
 	 		read;
 	 		InstallBox86;;
 	        [Nn]* ) InstallBox86;;
 	        * ) echo "Please answer y or n.";;
 	    esac;
     done;
-	echo "Press any key";
+	echo "Press Enter";
     read;
     InstallBox86;;
   2)
@@ -473,29 +473,29 @@ function InstallBox86 {
 			sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list;
 			wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box86-debs-archive-keyring.gpg;
 			sudo apt update && sudo apt install box86-generic-arm;
-	 		echo "Press any key";
+	 		echo "Press Enter";
 	 		read;
 	 		InstallBox86;;
 		  [Nn]* ) InstallBox86;;
 		  * ) echo "Please answer y or n.";;
 	    esac;
     done;
-	echo "Press any key";
+	echo "Press Enter";
     	read;
     	InstallBox86;;
   3)    
 	sudo apt autoremove box86 box86-generic-arm
-	echo "Press any key";
+	echo "Press Enter";
     	read;
     	InstallBox86;;
   4)
     echo "Not implemented yet, see : https://github.com/ptitSeb/box86/blob/master/docs/COMPILE.md for more info";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallBox86;;
   5)
     echo "Not implemented yet";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallBox86;;
   6)
@@ -537,14 +537,14 @@ function InstallBox64 {
 	    case $yn in
 	        [Yy]* ) sudo apt update;
 	 		sudo apt install box64;
-		 	echo "Press any key";
+		 	echo "Press Enter";
 	 		read;
 	 		InstallBox64;;
 	        [Nn]* ) InstallBox64;;
 	        * ) echo "Please answer y or n.";;
 	    esac;
     done;
-	echo "Press any key";
+	echo "Press Enter";
     read;
     InstallBox64;;
   2)
@@ -560,29 +560,29 @@ function InstallBox64 {
 			sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list;
 			wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg;
 			sudo apt update && sudo apt install box64-arm64;
-	 		echo "Press any key";
+	 		echo "Press Enter";
 	 		read;
 	 		InstallBox64;;
 		  [Nn]* ) InstallBox64;;
 		  * ) echo "Please answer y or n.";;
 	    esac;
     done;
-	echo "Press any key";
+	echo "Press Enter";
     	read;
     	InstallBox64;;
   3)    
 	sudo apt autoremove box64 box64-arm64
-	echo "Press any key";
+	echo "Press Enter";
     	read;
     	InstallBox64;;
   4)
     echo "Not implemented yet, see : https://github.com/ptitSeb/box86/blob/master/docs/COMPILE.md for more info";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallBox64;;
   5)
     echo "Not implemented yet";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallBox64;;
   6)
@@ -624,7 +624,7 @@ function InstallWine {
     mv ~/wine-7.0-x86 ~/wine ;
     rm ~/wine-7.0-x86.tar.xz ;
     echo "Installation completed for Wine 7.0";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallWine;;
   2)
@@ -633,22 +633,22 @@ function InstallWine {
     mv ~/wine-8.0-x86 ~/wine ;
     rm ~/wine-8.0-x86.tar.xz;
     echo "Installation completed for Wine 8.0";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallWine;;
   3)    
     rm -r ~/wine;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallWine;;
   4)
     echo "Not implemented yet";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallWine;;
   5)
     echo "Not implemented yet";
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallWine;;
   6)
@@ -656,7 +656,7 @@ function InstallWine {
     sudo ln -s ~/wine/bin/winecfg /usr/local/bin/ ;
     sudo ln -s ~/wine/bin/wineserver /usr/local/bin/ ;
 	sudo ln -s ~/wine/bin/wine64 /usr/local/bin/ ;
-    echo "Press any key";
+    echo "Press Enter";
     read;
     InstallWine;;
   7)
@@ -670,14 +670,14 @@ function InstallWine {
 
 function InstallWinetricks {
   echo "In the future"
-  echo "Press any key"
+  echo "Press Enter"
   read
   MainMenu
 }
 
 function InstallDXVK {
   echo "In the future"
-  echo "Press any key"
+  echo "Press Enter"
   read
   MainMenu
 }
@@ -741,7 +741,7 @@ sudo ln -s ~/wine/bin/wineserver /usr/local/bin/
 sudo ln -s ~/wine/bin/wine64 /usr/local/bin/
 
 echo "Configure Wine, install mono and all the things the soft ask and put it in xp compatibility for the Windows version."
-read -p "press any key if you read the text above "
+read -p "press Enter if you read the text above "
 winecfg
 
 ## libxpresent1 seems to be needed on my side for winetricks to work
