@@ -76,9 +76,9 @@ function DoTheBasics {
   sudo dpkg --add-architecture armhf
   sudo apt update
   sudo apt install build-essential git curl
-  sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf2.0-0:armhf \
-    libgtk2.0-0:armhf libstdc++6:armhf libsdl2-2.0-0:armhf mesa-va-drivers:armhf libsdl-mixer1.2:armhf \
-    libpng16-16:armhf libsdl2-net-2.0-0:armhf libopenal1:armhf libsdl2-image-2.0-0:armhf libjpeg62:armhf \
+  sudo apt install cmake cabextract 7zip libncurses6:armhf libc6:armhf libx11-6:armhf libgdk-pixbuf-xlib-2.0-0:armhf libgdk-pixbuf-xlib-2.0-0 \
+    libgtk2.0-0t64:armhf  libgtk2.0-0t64 libstdc++6:armhf libsdl2-2.0-0:armhf mesa-va-drivers:armhf libsdl-mixer1.2:armhf \
+    libpng16-16t64  libpng16-16t64:armhf libsdl2-net-2.0-0:armhf libopenal1:armhf libsdl2-image-2.0-0:armhf libjpeg62-turbo:armhf \
     libudev1:armhf libgl1-mesa-dev:armhf libx11-dev:armhf libsdl2-image-2.0-0:armhf libsdl2-mixer-2.0-0:armhf \
     libvulkan1 libvulkan1:armhf gcc-arm-linux-gnueabihf libc6-dev-armhf-cross ;
   echo "build-essential git curl and other libs for gaming successfully installed, bravo"
