@@ -383,8 +383,8 @@ function MenuBenchmark {
     read;
     MenuBenchmark;;
   6)
-    sudo apt install glmark2;
-    glmark2;
+    sudo apt install glmark2-wayland;
+    glmark2-wayland;
     echo "Press Enter";
     read;
     MenuBenchmark;;
